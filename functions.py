@@ -1,6 +1,11 @@
+from itertools import chain
+
+
 VALID_TYPES = {"sdna", "adna", "rna"}
 
 nucleotides_list = ["a", "t", "g", "c", "u"]
+
+rna_list = ["a", "u", "g", "c"]
 
 ADNA_TO_SDNA_PAIRS_AND_BACK = {"c":"g", "t":"a", "g":"c", "a":"t"}
 
@@ -53,26 +58,73 @@ proteids = {
 }
 
 # replacing nucleotides in a chain based on the principle of complementarity
-def convert_chain(source_type, target_type):
+    
+def convert_chain(source_type, target_type): # finding sDNA / aDNA / mRNA from a given sDNA / aDNA / mRNA
     result = []
 
-    chain = input("Enter chain: ").lower()
-    chain = list(chain)
+    while True:
+        chain = input("Enter chain: ").lower()
+
+        if chain == "back":
+            print("Returning to menu...")
+            return None
+
+        invalid_found = False
+
+        for n in chain:
+            if n not in nucleotides_list:
+                print(f"Invalid nucleotide {n} in chain. Check your input\nIf you want to back to the menu, print 'back' at any time")
+                print("-----------------------------------------------------------")
+
+                invalid_found = True
+                break
+
+        if not invalid_found:
+            break
+
+    translator = TRANSLATIONS[(source_type, target_type)]
 
     for n in chain:
-        if n not in nucleotides_list:
-            print(f"Invalid nucleotide {n} in chain. Check your input")
-            chain = input("Enter chain:").lower()
-            chain = list(chain)
-        continue
+        result.append(translator[n])
 
-    translator = TRANSLATIONS[(source_type, target_type)] #ADNA_TO_SDNA_PAIRS_AND_BACK = {"c":"g", "t":"a", "g":"c", "a":"t"}
-    
-    for n in chain:
-        n = translator[n]
-        result.append(n)
-
-    return result   
+    return result
+  
             
-def find_protein_chain(mrna):
-    return "This function is not implemented yet. Check for updates in the future."
+def find_protein_chain(mrna): # finding the protein chain from a given mRNA
+    result = []
+
+    while True:
+
+        if mrna == "back":
+            print("Returning to menu...")
+            return None
+
+        invalid_found = False
+
+        for n in mrna:
+            if n not in rna_list:
+                print(f"Invalid nucleotide {n} in chain. Check your input\nIf you want to back to the menu, print 'back' at any time")
+                print("-----------------------------------------------------------")
+            
+
+                invalid_found = True
+                break
+
+        if not invalid_found:
+            break
+
+        translator = proteids[n]
+
+
+        if invalid_found:
+            mrna = input("Enter mRNA chain: ").lower()
+            continue
+
+        break
+
+    result = []
+
+    for n in mrna:
+        result.append(proteids[n])
+
+    return result
