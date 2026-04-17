@@ -10,8 +10,7 @@ Python CLI tool for molecular biology tasks.
 ## Features
 
 - Convert DNA ↔ RNA chains  
-- Translate mRNA sequences into protein chains  
+- Translate mRNA sequences into protein chains (coming soon)
 - Validate nucleotide sequences  
 - Count nucleotides (coming soon)  
-- Determine DNA type (coming soon)  
-- Find tRNA anticodons (coming soon)
+
