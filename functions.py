@@ -52,33 +52,27 @@ proteids = {
     "ggu": "Glycine", "ggc": "Glycine", "gga": "Glycine", "ggg": "Glycine"
 }
 
-# general function for replacing nucleotides in a chain based on the principle of complementarity
-def translate_chain(chain, dictionary): 
-
-    result = ""
-    for n in chain:
-
-        if n not in nucleotides_list:
-            raise ValueError(f"Invalid nucleotide '{n}' in chain. Check your input.")
-        else:
-            result += dictionary[n]
-
-    return result
-
-
+# replacing nucleotides in a chain based on the principle of complementarity
 def convert_chain(source_type, target_type):
+    result = []
 
     chain = input("Enter chain: ").lower()
+    chain = list(chain)
 
-    if source_type not in VALID_TYPES or target_type not in VALID_TYPES:
-        raise ValueError("Invalid chain type. Use: 'sDNA', 'aDNA', or 'RNA'")
+    for n in chain:
+        if n not in nucleotides_list:
+            print(f"Invalid nucleotide {n} in chain. Check your input")
+            chain = input("Enter chain:").lower()
+            chain = list(chain)
+        continue
 
-    elif target_type == source_type:
-        return chain, "Chain types are the same"
+    translator = TRANSLATIONS[(source_type, target_type)] #ADNA_TO_SDNA_PAIRS_AND_BACK = {"c":"g", "t":"a", "g":"c", "a":"t"}
     
-    else:
-        translator = TRANSLATIONS[(source_type, target_type)]
-    
+    for n in chain:
+        n = translator[n]
+        result.append(n)
+
+    return result   
             
 def find_protein_chain(mrna):
     return "This function is not implemented yet. Check for updates in the future."
