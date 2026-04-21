@@ -70,8 +70,9 @@ while True:
 
             mrna = input("Input mRNA > ").lower()
 
-            print(fun.find_protein_chain(mrna))
-
+            output = fun.find_protein_chain(mrna)
+            output = "".join(output)
+            print(output)
 
         elif choice == "3":   # Count nucleotides in DNA / mRNA:
             while True:

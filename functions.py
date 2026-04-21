@@ -69,7 +69,7 @@ def convert_chain(source_type, target_type): # finding sDNA / aDNA / mRNA from a
             print("Returning to menu...")
             return None
 
-        invalid_found = False
+        invalid_found = False 
 
         for n in chain:
             if n not in nucleotides_list:
@@ -114,6 +114,9 @@ def find_protein_chain(mrna): # finding the protein chain from a given mRNA
             break
 
         translator = proteids[n]
+
+        for n in chain:
+        result.append(translator[n])
 
 
         if invalid_found:
